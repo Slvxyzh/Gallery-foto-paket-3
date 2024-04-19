@@ -26,6 +26,12 @@ class HomeController extends Controller
         return view('Home.gallery',compact('data'));
     }
 
+    // public function profile()
+    // {
+    //     $data = Posts::get();
+    //     return view('Home.profile',compact('data'));
+    // }
+
     public function export()
     {
         $posts = Posts::with('album', 'likes', 'komentar')->get()->map(function ($post) {
@@ -117,18 +123,27 @@ class HomeController extends Controller
         return response()->json(['success' => true]);
     }
 
-    // public function destroy($id)
-    // {
-    //     $post = Posts::find($id);
-
-    //     if ($post) {
-    //         Storage::delete('images/'.$post->cover);
-
-    //         $post->delete();
-
-    //         return redirect()->back()->with('success', 'Post berhasil dihapus.');
-    //     } else {
-    //         return redirect()->back()->with('error', 'Post tidak ditemukan.');
-    //     }
-    // }
+    public function delete(Request $request)
+    {
+       
+    
+        // Cari post yang akan dihapus
+        $post = Posts::find($request->postId);
+    
+        // Jika post ditemukan, hapus post tersebut
+        if ($post) {
+            // Hapus terlebih dahulu semua like yang terkait dengan post
+            Like::where('post_id', $request->postId)->delete();
+    
+            // Hapus juga semua komentar yang terkait dengan post
+            Komentar::where('post_id', $request->postId)->delete();
+    
+            // Hapus post itu sendiri
+            $post->delete();
+    
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Post not found.']);
+        }
+    }
 }

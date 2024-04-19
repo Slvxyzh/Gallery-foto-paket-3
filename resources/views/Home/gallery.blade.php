@@ -59,9 +59,9 @@
                             <a class="nav-link click-scroll active" href="/gallery">Gallery</a>
                         </li>
 
-                        {{-- <li class="nav-item">
-                                <a class="nav-link click-scroll" href="/upload">Upload</a>
-                            </li> --}}
+                        <li class="nav-item">
+                                <a class="nav-link click-scroll" href="/profile">Profile</a>
+                            </li>
                     </ul>
 
                     @if (Auth::user())
@@ -112,7 +112,6 @@
             </div>
             @endforeach
         </div>
-
     </div>
 
 

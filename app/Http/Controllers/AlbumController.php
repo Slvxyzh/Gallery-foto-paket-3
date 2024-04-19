@@ -15,10 +15,10 @@ class AlbumController extends Controller
 
         return view('Home.album', compact('albums'));
     }
-    // public function create()
-    // {
-    //     return view('albums.create');
-    // }
+    public function create()
+    {
+        return view('albums.create');
+    }
     public function store(Request $request)
     {
         $request->validate([

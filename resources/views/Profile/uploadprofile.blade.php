@@ -15,7 +15,7 @@
   
   <div class="container">
     <h3 class="mt-4">Upload Image</h3>
-    <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('Profile.store') }}" method="POST" enctype="multipart/form-data">
       @csrf
       <div class="form-group">
           <label for="name">Judul:</label>
@@ -34,10 +34,10 @@
           <input type="file" class="form-control-file" name="cover" id="cover">
       </div>
       <div class="form-group">
-        <label for="album_id">Album:</label>
-        <select name="album_id" id="album_id" class="form-control">
-            @foreach($albums as $album)
-                <option value="{{ $album->id }}">{{ $album->name }}</option>
+        <label for="user_id">User:</label>
+        <select name="user_id" id="user_id" class="form-control">
+            @foreach($user as $id=> $name)
+                <option value="{{$id }}">{{ $name }}</option>
             @endforeach
         </select>
       </div>

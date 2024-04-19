@@ -22,6 +22,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
         <link href="assets/css/bootstrap-icons.css" rel="stylesheet">
         <link href="assets/css/cardimg.css" rel="stylesheet">
 
@@ -58,6 +60,9 @@
 
                             <li class="nav-item">
                                 <a class="nav-link click-scroll" href="/gallery">Gallery</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link click-scroll" href="/profile">Profile</a>
                             </li>
     
                             {{-- <li class="nav-item">
@@ -122,7 +127,49 @@
             @endforeach
         </div>
 
-
+        <script>
+            function deletePost(button) {
+                var postId = $(button).data('post-id');
+                    
+                // Konfirmasi penghapusan
+                if (confirm("Are you sure you want to delete this post?")) {
+                    // Kirim permintaan penghapusan ke server
+                    $.ajax({
+                        url: '{{ route("post.delete") }}',
+                        type: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data: {
+                            postId: postId
+                        },
+                        
+                        success: function(response) {
+                            if (response.success) {
+                                // Hapus card dari tampilan
+                                $(button).closest('.card').remove();
+                                alert('Post deleted successfully.');
+                            } else {
+                                alert('Failed to delete post: ' + response.message);
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            // Penanganan kesalahan saat gagal menghapus post
+                            var errorMessage = "Failed to delete post: ";
+                            if (xhr.responseText) {
+                                // Jika respons dari server berisi pesan kesalahan
+                                errorMessage += xhr.responseText;
+                            } else {
+                                // Jika tidak ada respons dari server
+                                errorMessage += status + ": " + error;
+                            }
+                            alert(errorMessage);
+                        }
+                    });
+                }
+            }
+        </script>
+        
         <!-- JAVASCRIPT FILES -->
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/js/bootstrap.bundle.min.js"></script>

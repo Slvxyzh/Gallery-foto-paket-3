@@ -6,6 +6,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\ProfileController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -39,8 +41,16 @@ Route::post('/comment', [HomeController::class, 'storeKomentar'])->name('komenta
 
 Route::get('/gallery', [HomeController::class, 'gallery'])->name('Home.gallery');
 Route::get('/export', [HomeController::class, 'export'])->name('export');
-Route::delete('/posts/{id}', [HomeController::class, 'destroy'])->name('posts.destroy');
+Route::delete('/post/delete', [HomeController::class, 'delete'])->name('post.delete');
 
+// Route::get('/profile', [HomeController::class, 'profile'])->name('Home.profile');
+// Route::get('/detail/profile', [HomeController::class, 'profile'])->name('Home.detailprofile');
+
+// PROFILE
+Route::get('/profile', [ProfileController::class, 'index'])->name('index');
+Route::get('/profile/uploadprofile', [ProfileController::class, 'create'])->name('Profile.uploadprofile');
+Route::post('/profile/store', [ProfileController::class, 'store'])->name('Profile.store');
+Route::get('albumFoto', [ProfileController::class, 'album'])->name('albumFoto');
 
 // ALBUMFOTO
 Route::get('/albums', [AlbumController::class, 'index'])->name('albums.index');

@@ -10,10 +10,12 @@ class Album extends Model
     use HasFactory;
 
     protected $fillable = [
+        'cover',
         'name',
         'deskripsi',
         'tanggaldibuat',
         'user_id',
+        ''
     ];
 
     public function user()
