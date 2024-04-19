@@ -1,0 +1,90 @@
+/* body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #a7a6a6;
+}
+
+.container {
+  background-color: rgba(219, 219, 219, .45);
+  display: flex;
+  align-items: center;
+  padding: 50px;
+  border-radius: 12px;
+  width: 65%;
+  height: 40%;
+  gap: 20px;
+}
+
+form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgba(176, 196, 222, .65);
+  padding: 25px;
+  border-radius: 6px;
+  width: 50%;
+  height: fit-content;
+  gap: 25px;
+}
+
+form > p {
+  font-weight: 600;
+  font-size: 16px;
+  margin: 0px;
+}
+
+button {
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgba(67, 67, 92, 0.35);
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  color:aliceblue;
+}
+
+.inputContainer {
+  width: 100%;
+  gap: 22px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+input {
+  padding: 6px 4px;
+  border-radius: 4px;
+}
+
+.imgContainer {
+  display: flex;
+  padding: 0 10px;
+  align-items: center;
+  width: 100%;
+}
+
+.inputImg {
+  width: 350px;
+  height: 200px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px dashed rgba(0,0,0,.25);
+}
+
+img {
+  height: 100%;
+  position: absolute;
+  outline: none;
+  background-size: cover;
+} */

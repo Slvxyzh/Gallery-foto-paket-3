@@ -1,0 +1,64 @@
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    margin: 0 auto;
+    margin-top: 50px;
+    max-width: 1000px;
+  }
+  
+  .card {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    /* border: 1px solid  */
+}
+  
+  .card img {
+    width: 100%;
+    height: auto;
+    max-height: 200px; /* Tinggi maksimum gambar */
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+  }
+  
+  .button-group button {
+    padding: 10px 20px;
+    font-size: 14px; /* Ukuran font tombol */
+    border: none;
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .button-group button:hover {
+    background-color: #ddd;
+  }
+  
+  .like-count,
+  .comment-count {
+    font-weight: bold;
+    margin-left: 5px;
+  }
+
+  .post-comment-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 4px;
+    margin-top: 8px;
+    font-weight: 600;
+  }
+
+  .post-comment-btn:hover {
+    background-color: #0056b3;
+  }
+  
