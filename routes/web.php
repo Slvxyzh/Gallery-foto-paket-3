@@ -41,21 +41,24 @@ Route::post('/comment', [HomeController::class, 'storeKomentar'])->name('komenta
 
 Route::get('/gallery', [HomeController::class, 'gallery'])->name('Home.gallery');
 Route::get('/export', [HomeController::class, 'export'])->name('export');
-Route::delete('/post/delete', [HomeController::class, 'delete'])->name('post.delete');
+Route::delete('/komentar/delete/{id}', [HomeController::class, 'delete'])->name('komentar.delete');
 
 // Route::get('/profile', [HomeController::class, 'profile'])->name('Home.profile');
 // Route::get('/detail/profile', [HomeController::class, 'profile'])->name('Home.detailprofile');
 
 // PROFILE
-Route::get('/profile', [ProfileController::class, 'index'])->name('index');
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 Route::get('/profile/uploadprofile', [ProfileController::class, 'create'])->name('Profile.uploadprofile');
 Route::post('/profile/store', [ProfileController::class, 'store'])->name('Profile.store');
 Route::get('albumFoto', [ProfileController::class, 'album'])->name('albumFoto');
 
 // ALBUMFOTO
-Route::get('/albums', [AlbumController::class, 'index'])->name('albums.index');
-Route::get('/Home/albums', [AlbumController::class, 'index'])->name('Home.albums');
-Route::post('/albums', 'App\Http\Controllers\AlbumController@store')->name('albums.store');
+// Route::get('/albums', [AlbumController::class, 'index'])->name('albums.index');
+Route::get('/Home/album', [AlbumController::class, 'index'])->name('Home.album');
+Route::get('/Album/show/{id}', [AlbumController::class, 'show'])->name('Album.show');
+Route::delete('/albums/{id}', [AlbumController::class, 'destroy'])->name('albums.destroy');
+Route::delete('/albums/{album}', [ProfileController::class, 'destroy'])->name('Profile.delete');
+
 Route::get('/albums/{album}', 'App\Http\Controllers\AlbumController@show')->name('albums.show');
 Route::get('/albums/{album}/edit', 'App\Http\Controllers\AlbumController@edit')->name('albums.edit');
 Route::put('/albums/{album}', 'App\Http\Controllers\AlbumController@update')->name('albums.update');

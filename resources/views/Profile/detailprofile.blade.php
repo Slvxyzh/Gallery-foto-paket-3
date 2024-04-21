@@ -9,14 +9,17 @@
 <body>
   
     <div id="photoModal" class="modal">
-        <span class="close" onclick="closePhotoModal()">&times;</span>
+        {{-- <span class="close" onclick="closePhotoModal()">&times;</span> --}}
         <img class="modal-content" id="modalPhoto">
         <div id="caption"></div>
         <div id="albumCaption"></div>
+        <a href="/profile" class="back-btn">Back to Profile</a>
     </div>
-
+    
+    
+    
     @foreach ($data as $item)
-       <img src="{{ asset('images/'.$item->cover) }}" alt="Photo" style="width: 200px; height: 200px; margin-top: 80px ">
+       <img src="{{ asset('images/'.$item->cover) }}" alt="Photo" style="width: 200px; height: 200px; margin-top: 80px  ">
     @endforeach
 
 

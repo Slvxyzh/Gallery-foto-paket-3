@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Exports\PostsExport;
 use Illuminate\Http\Request;
 use App\Models\Posts;
 use App\Models\Like;
 use App\Models\Komentar;
+use App\Models\Album;
 use Maatwebsite\Excel\Facades\Excel;
 class HomeController extends Controller
 {
@@ -22,8 +24,9 @@ class HomeController extends Controller
     
     public function gallery()
     {
-        $data = Posts::get();
-        return view('Home.gallery',compact('data'));
+        $albums = Album::get();
+        $posts = Posts::all(); // Mengambil semua foto dari semua album tanpa filter berdasarkan ID pengguna
+        return view('Home.gallery', ['posts' => $posts, 'albums' => $albums]);
     }
 
     // public function profile()
@@ -123,27 +126,11 @@ class HomeController extends Controller
         return response()->json(['success' => true]);
     }
 
-    public function delete(Request $request)
+    public function delete($id)
     {
-       
-    
-        // Cari post yang akan dihapus
-        $post = Posts::find($request->postId);
-    
-        // Jika post ditemukan, hapus post tersebut
-        if ($post) {
-            // Hapus terlebih dahulu semua like yang terkait dengan post
-            Like::where('post_id', $request->postId)->delete();
-    
-            // Hapus juga semua komentar yang terkait dengan post
-            Komentar::where('post_id', $request->postId)->delete();
-    
-            // Hapus post itu sendiri
-            $post->delete();
-    
-            return response()->json(['success' => true]);
-        } else {
-            return response()->json(['success' => false, 'message' => 'Post not found.']);
-        }
+         $comment = Komentar::findOrFail($id);
+         $comment->delete();
+
+         return response()->json(['success' => true]);
     }
 }

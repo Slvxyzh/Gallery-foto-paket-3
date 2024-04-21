@@ -33,14 +33,14 @@
           <label for="cover">Cover:</label>
           <input type="file" class="form-control-file" name="cover" id="cover">
       </div>
-      <div class="form-group">
+      {{-- <div class="form-group">
         <label for="user_id">User:</label>
         <select name="user_id" id="user_id" class="form-control">
             @foreach($user as $id=> $name)
                 <option value="{{$id }}">{{ $name }}</option>
             @endforeach
         </select>
-      </div>
+      </div> --}}
       <button type="submit" class="btn btn-primary">Save</button>
     </form>
   

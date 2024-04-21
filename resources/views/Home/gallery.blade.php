@@ -87,7 +87,7 @@
     <div class="container">
         <a href="{{ route('export') }}" class="btn btn-primary btn-block"><i class="bi bi-upload">Export Excel</i></a>
         <div class="gallery">
-            @foreach ($data as $item)
+            @foreach ($posts as $item)
             <div class="card" data-post-id="{{ $item->id }}">
                 <img src="{{ asset('images/'.$item->cover) }}" alt="Photo">
                 <div class="">
@@ -100,8 +100,11 @@
                 <p style="margin-left: 15px;">Semua Komentar</p>
                 <div class="comments ml-3" style="margin-left: 15px;">
                     @foreach ($item->komentar as $comment)
-                    <div class="comment">
+                    <div class="comment d-flex align-items-center justify-content-between">
                         <p><strong>{{ $comment->user->name }}</strong>: {{ $comment->isikomentar }}</p>
+                        <button class="delete-comment-btn" onclick="deleteComment(this)" data-comment-id="{{ $comment->id }}">
+                            <i class="fas fa-trash" style="border: none;"></i>
+                        </button>
                     </div>
                     @endforeach
                 </div>
@@ -113,6 +116,31 @@
             @endforeach
         </div>
     </div>
+
+    <script>
+        function deleteComment(button) {
+        if (confirm("Are you sure you want to delete this comment?")) {
+            var commentId = button.getAttribute('data-comment-id');
+
+            $.ajax({
+                url: '/komentar/delete/' + commentId,
+                type: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    // Hapus komentar dari DOM jika penghapusan berhasil
+                    $(button).closest('.comment').remove();
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                    alert('Error deleting comment!');
+                }
+            });
+        }
+    }
+    </script>
+
 
 
     <!-- JAVASCRIPT FILES -->

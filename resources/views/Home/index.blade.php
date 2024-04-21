@@ -64,6 +64,7 @@
                             <li class="nav-item">
                                 <a class="nav-link click-scroll" href="/profile">Profile</a>
                             </li>
+                                
     
                             {{-- <li class="nav-item">
                                 <a class="nav-link click-scroll" href="/upload">Upload</a>
@@ -86,11 +87,15 @@
             <section class="hero-section d-flex justify-content-center align-items-center" id="section_1">
                 <div class="container">
                     <div class="row">
-
                         <div class="col-lg-8 col-12 mx-auto">
                             <a href="{{ route('Home.posts') }}" class="btn btn-primary btn-block"><i class="bi bi-upload">Upload Image</i></a>
                             <p>Capturing Moments.</p>
                             <p>Creating Memories, Witness the Beauty in Our Gallery.</p>
+                            @if(Auth::check())
+                           <h5 style="color: #99afb6;">Welcome, {{ Auth::user()->name }}</h5>
+                          @else
+                           <p style="color: #9c9c9c;">Welcome, Guest</p>
+                          @endif
                             {{-- <button type="submit" class="form-control" value="Upload Foto">Upload Foto</button> --}}
                         </div>
                         <div class="heroimg-new">
@@ -114,7 +119,7 @@
                             class="like-count">{{ $item->likes->count() }}</span></button>
                     <button class="comment-btn" onclick="toggleComment(this)"><i class="fas fa-comment"></i> Comment <span
                             class="comment-count">{{ $item->komentar->count() }}</span></button>
-                    <button class="delete-btn" onclick="deletePost(this)" data-post-id="{{ $item->id }}"><i class="fas fa-trash"></i></button>
+                    {{-- <button class="delete-btn" onclick="deletePost(this)" data-post-id="{{ $item->id }}"><i class="fas fa-trash"></i></button> --}}
 
                     
                 </div>
@@ -127,49 +132,7 @@
             @endforeach
         </div>
 
-        <script>
-            function deletePost(button) {
-                var postId = $(button).data('post-id');
-                    
-                // Konfirmasi penghapusan
-                if (confirm("Are you sure you want to delete this post?")) {
-                    // Kirim permintaan penghapusan ke server
-                    $.ajax({
-                        url: '{{ route("post.delete") }}',
-                        type: 'DELETE',
-                        headers: {
-                            'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
-                        },
-                        data: {
-                            postId: postId
-                        },
-                        
-                        success: function(response) {
-                            if (response.success) {
-                                // Hapus card dari tampilan
-                                $(button).closest('.card').remove();
-                                alert('Post deleted successfully.');
-                            } else {
-                                alert('Failed to delete post: ' + response.message);
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            // Penanganan kesalahan saat gagal menghapus post
-                            var errorMessage = "Failed to delete post: ";
-                            if (xhr.responseText) {
-                                // Jika respons dari server berisi pesan kesalahan
-                                errorMessage += xhr.responseText;
-                            } else {
-                                // Jika tidak ada respons dari server
-                                errorMessage += status + ": " + error;
-                            }
-                            alert(errorMessage);
-                        }
-                    });
-                }
-            }
-        </script>
-        
+                
         <!-- JAVASCRIPT FILES -->
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/js/bootstrap.bundle.min.js"></script>

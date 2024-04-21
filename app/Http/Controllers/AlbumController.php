@@ -11,7 +11,7 @@ class AlbumController extends Controller
 {
     public function index()
     {
-        $data = Posts::get();
+        $albums = Album::with('post')->get();
 
         return view('Home.album', compact('albums'));
     }
@@ -34,15 +34,17 @@ class AlbumController extends Controller
         $album->user_id = auth()->id();
         $album->save();
 
-        return redirect()->route('albums.index')->with('success', 'Album created successfully.');
+        return redirect()->route('Home.album')->with('success', 'Album created successfully.');
     }
 
     /**
      * Menampilkan detail sebuah album.
      */
-    public function show(Album $album)
+    public function show($id)
     {
-        return view('albums.show', compact('album'));
+        $album = Album::findOrFail($id);
+        $posts = Posts::where('album_id', $id)->get(); // Mendapatkan semua foto yang terkait dengan album
+        return view('album.show', compact('album','posts'));
     }
 
     /**
@@ -75,9 +77,17 @@ class AlbumController extends Controller
     /**
      * Menghapus sebuah album dari database.
      */
-    public function destroy(Album $album)
-    {
+    public function destroy($id)
+{
+    $album = Album::findOrFail($id);
+    
+    // Pastikan hanya pengguna yang memiliki izin yang dapat menghapus album
+    if ($album->user_id === auth()->id()) {
         $album->delete();
-        return redirect()->route('albums.index')->with('success', 'Album deleted successfully.');
+        return redirect()->route('index')->with('success', 'Album deleted successfully.');
+    } else {
+        // Tambahkan logika untuk menangani kasus ketika pengguna tidak memiliki izin
+        return redirect()->route('index')->with('error', 'You are not authorized to delete this album.');
     }
+}
 }
