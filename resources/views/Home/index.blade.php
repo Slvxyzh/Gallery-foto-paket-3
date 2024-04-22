@@ -57,6 +57,15 @@
                             <li class="nav-item">
                                 <a class="nav-link click-scroll active" href="/home">Home</a>
                             </li>
+                            <li class="nav-item dropdown" style="margin-top: -3px">
+                                <a class="nav-link dropdown-toggle btn btn-primary btn-block" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-upload"></i> Upload
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="{{ route('Home.posts') }}">Upload Foto</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('Profile.uploadprofile') }}">Upload Album</a></li>
+                                </ul>
+                            </li>                            
 
                             <li class="nav-item">
                                 <a class="nav-link click-scroll" href="/gallery">Gallery</a>
@@ -88,7 +97,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-8 col-12 mx-auto">
-                            <a href="{{ route('Home.posts') }}" class="btn btn-primary btn-block"><i class="bi bi-upload">Upload Image</i></a>
+                            {{-- <a href="{{ route('Home.posts') }}" class="btn btn-primary btn-block"><i class="bi bi-upload">Upload Image</i></a> --}}
                             <p>Capturing Moments.</p>
                             <p>Creating Memories, Witness the Beauty in Our Gallery.</p>
                             @if(Auth::check())
@@ -112,23 +121,29 @@
 
         <div class="gallery">
             @foreach ($data as $item)
-            <div class="card" data-post-id="{{ $item->id }}">
-                <img src="{{ asset('images/'.$item->cover) }}" alt="Photo">
-                <div class="button-group">
-                    <button class="like-btn" onclick="toggleLike(this)"><i class="fas fa-heart"></i> Like <span
-                            class="like-count">{{ $item->likes->count() }}</span></button>
-                    <button class="comment-btn" onclick="toggleComment(this)"><i class="fas fa-comment"></i> Comment <span
-                            class="comment-count">{{ $item->komentar->count() }}</span></button>
-                    {{-- <button class="delete-btn" onclick="deletePost(this)" data-post-id="{{ $item->id }}"><i class="fas fa-trash"></i></button> --}}
-
-                    
+                <div class="card" data-post-id="{{ $item->id }}">
+                    <img src="{{ asset('images/'.$item->cover) }}" alt="Photo">
+                    <div class="button-group">
+                        <button class="like-btn" onclick="toggleLike(this)" data-post-id="{{ $item->id }}"><i class="fas fa-heart"></i> Like <span class="like-count">{{ $item->likes->count() }}</span></button>
+                        <button class="comment-btn" onclick="toggleComment(this)" data-post-id="{{ $item->id }}"><i class="fas fa-comment"></i> Comment <span class="comment-count">{{ $item->komentar->count() }}</span></button>
+                    </div>
+                    <div class="comment-box" style="display: none;">
+                        <!-- Form komentar -->
+                        <textarea class="comment-textarea" placeholder="Write your comment here..."></textarea>
+                        <button class="post-comment-btn" style="margin-bottom: 10px" onclick="postComment(this)" data-post-id="{{ $item->id }}">Post</button>
+                        <!-- Daftar komentar -->
+                        <div class="comments ml-3" style="margin-left: 15px;">
+                            @foreach ($item->komentar as $comment)
+                                <div class="comment d-flex align-items-center justify-content-between">
+                                    <p><strong>{{ $comment->user->name }}</strong>: {{ $comment->isikomentar }}</p>
+                                    <button class="delete-comment-btn" onclick="deleteComment(this)" data-comment-id="{{ $comment->id }}">
+                                        <i class="fas fa-trash" style="border: none;"></i>
+                                    </button>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
-                <div class="comment-box" style="display: none;">
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <textarea class="comment-textarea" placeholder="Write your comment here..."></textarea>
-                    <button class="post-comment-btn" style="margin-bottom: 10px" onclick="postComment(this)">Post</button>
-                </div>
-            </div>
             @endforeach
         </div>
 

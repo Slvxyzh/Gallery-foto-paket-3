@@ -55,9 +55,15 @@
                             <a class="nav-link click-scroll" href="/home">Home</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link click-scroll active" href="/gallery">Gallery</a>
-                        </li>
+                        <li class="nav-item dropdown" style="margin-top: -3px">
+                            <a class="nav-link dropdown-toggle btn btn-primary btn-block" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-upload"></i> Upload
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="{{ route('Home.posts') }}">Upload Foto</a></li>
+                                <li><a class="dropdown-item" href="{{ route('Profile.uploadprofile') }}">Upload Album</a></li>
+                            </ul>
+                        </li> 
 
                         <li class="nav-item">
                                 <a class="nav-link click-scroll" href="/profile">Profile</a>
@@ -85,7 +91,7 @@
     </main>
     <br><br><br><br>
     <div class="container">
-        <a href="{{ route('export') }}" class="btn btn-primary btn-block"><i class="bi bi-upload">Export Excel</i></a>
+        {{-- <a href="{{ route('export') }}" class="btn btn-primary btn-block"><i class="bi bi-upload">Pelaporan</i></a> --}}
         <div class="gallery">
             @foreach ($posts as $item)
             <div class="card" data-post-id="{{ $item->id }}">

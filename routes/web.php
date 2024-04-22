@@ -7,7 +7,7 @@ use App\Http\Controllers\UploadController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\ProfileController;
-
+use App\Http\Controllers\PelaporController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,10 +38,14 @@ Route::post('/like', [HomeController::class, 'storeLike'])->name('like');
 Route::get('/like-status',[HomeController::class, 'checkLikeStatus'])->name('checklike');
 Route::delete('/unlike', [HomeController::class, 'unlike'])->name('unlike');
 Route::post('/comment', [HomeController::class, 'storeKomentar'])->name('komentar');
+Route::post('/post-comment', 'HomeController@storeKomentar')->middleware('web');
+
 
 Route::get('/gallery', [HomeController::class, 'gallery'])->name('Home.gallery');
-Route::get('/export', [HomeController::class, 'export'])->name('export');
+// Route::post('/export', [HomeController::class, 'export'])->name('export');
 Route::delete('/komentar/delete/{id}', [HomeController::class, 'delete'])->name('komentar.delete');
+
+Route::get('/download-pdf', [PelaporController::class, 'pelapor'])->name('download.pdf');
 
 // Route::get('/profile', [HomeController::class, 'profile'])->name('Home.profile');
 // Route::get('/detail/profile', [HomeController::class, 'profile'])->name('Home.detailprofile');

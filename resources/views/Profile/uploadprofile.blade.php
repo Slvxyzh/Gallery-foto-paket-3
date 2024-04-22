@@ -14,7 +14,7 @@
 <body>
   
   <div class="container">
-    <h3 class="mt-4">Upload Image</h3>
+    <h3 class="mt-4">Upload Album</h3>
     <form action="{{ route('Profile.store') }}" method="POST" enctype="multipart/form-data">
       @csrf
       <div class="form-group">

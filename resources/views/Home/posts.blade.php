@@ -12,7 +12,6 @@
   <link rel="stylesheet" href="{{asset('assets/css/Post.css')}}">
 </head>
 <body>
-  
   <div class="container">
     <h3 class="mt-4">Upload Image</h3>
     <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
@@ -37,10 +36,14 @@
         <label for="album_id">Album:</label>
         <select name="album_id" id="album_id" class="form-control">
             @foreach($albums as $album)
-                <option value="{{ $album->id }}">{{ $album->name }}</option>
+                @if($album->user_id == auth()->id())
+                    <option value="{{ $album->id }}">{{ $album->name }}</option>
+                @endif
             @endforeach
         </select>
-      </div>
+    </div>
+    
+    
       <button type="submit" class="btn btn-primary">Save</button>
     </form>
   

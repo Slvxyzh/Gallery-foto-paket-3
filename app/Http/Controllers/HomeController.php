@@ -9,6 +9,7 @@ use App\Models\Posts;
 use App\Models\Like;
 use App\Models\Komentar;
 use App\Models\Album;
+use App\Models\Pelapor;
 use Maatwebsite\Excel\Facades\Excel;
 class HomeController extends Controller
 {
@@ -122,6 +123,12 @@ class HomeController extends Controller
         $komentar->tanggalkomentar = now(); // Tanggal komentar saat ini
         $komentar->save();
 
+        $aktivitas = "menampilkan detail foto";
+
+        Pelapor::create([
+            'user_id' => Auth::id(),
+            'aktivitas' => $aktivitas,
+        ]);
         // Respon JSON untuk mengindikasikan bahwa komentar berhasil disimpan
         return response()->json(['success' => true]);
     }
@@ -133,4 +140,5 @@ class HomeController extends Controller
 
          return response()->json(['success' => true]);
     }
+    
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Posts;
 use App\Models\Album;
 use App\Models\User;
+use App\Models\Pelapor;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -57,6 +58,13 @@ class ProfileController extends Controller
                 $file->move($destination, $fileName);
                 $post->cover = $fileName;
             }
+
+            $aktivitas = "menampilkan detail foto";
+
+            Pelapor::create([
+                'user_id' => Auth::id(),
+                'aktivitas' => $aktivitas,
+            ]);
 
             // Simpan data album
             $post->save();

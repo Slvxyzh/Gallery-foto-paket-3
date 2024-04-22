@@ -10,6 +10,7 @@
             background-color: aquamarine
         }
   </style>
+  
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
@@ -39,10 +40,17 @@
         </ul> --}}
       </div>
     </div>
-    <form action="#" method="post" enctype="multipart/form-data">
+    {{-- <form action="#" method="post" enctype="multipart/form-data">
       <a href="{{ route('Profile.uploadprofile') }}" class="btn btn-primary btn-block upload-button">
         <i class="bi bi-upload"></i>+Upload
-    </a>    </form>
+    </a>    
+  </form> --}}
+  <form action="{{ route('download.pdf') }}" method="get">
+    <button type="submit" class="btn btn-primary btn-block" style="background-color: #85a4c5; border: none; border-radius: 8px; padding: 10px 20px; font-size: 16px; color: white; margin-top: 15px;">
+      <i class="bi bi-upload"></i> Pelaporan
+    </button>
+</form>
+  
     
     {{-- <div class="container">
       <div class="gallery">

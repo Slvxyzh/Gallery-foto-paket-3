@@ -65,6 +65,12 @@ class UserController extends Controller
             'password.required' => 'Password wajib diisi',
             'password.min' => 'Minimum password 8 karakter'
         ]);
+
+        Pelapor::create([
+            'user_id' => Auth::id(),
+            'aktivitas' => $aktivitas,
+             ]);
+
         $data = [
             'name' => $request->name,
             'email' => $request->email,
